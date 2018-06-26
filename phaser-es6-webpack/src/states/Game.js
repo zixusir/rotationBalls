@@ -6,6 +6,8 @@ import Triangle from '../sprites/triangle'
 import Ball from '../sprites/ball'
 import 'p2'
 
+const PI = 3.1415926
+
 export default class extends Phaser.State {
   constructor() {
     super()
@@ -25,7 +27,7 @@ export default class extends Phaser.State {
   init() { 
     game.physics.startSystem(Phaser.Physics.P2JS)
     game.physics.p2.setImpactEvents(true)
-    //game.physics.p2.gravity.y = 1000
+    game.physics.p2.gravity.y = 1000
     game.physics.p2.restitution = 0.8
     
     this.stage.backgroundColor = '#ffffff'
@@ -104,34 +106,33 @@ export default class extends Phaser.State {
   }
   
   moveTo (pointer) {
-    game.input.enabled = false
+    //game.input.enabled = false
     this.inGame = true
     console.log(this.balls.length)
     let num = 0
     this.balls[num].inCollision = true
     this.balls[num].body.x = this.game.width / 2
     this.balls[num].body.y = 250
-    //this.balls[num].body.rotation = Phaser.Math.angleBetween(pointer.x, pointer.y, this.balls[num].body.x, this.balls[num].body.y) - 1.57
-    this.balls[num].body.rotation = 135
-    console.log(Phaser.Math.angleBetween(pointer.x, pointer.y, this.balls[num].body.x, this.balls[num].body.y) * 180 / 3.14)
+    let direction = Phaser.Math.angleBetween(2 * pointer.x, 2 * pointer.y, this.game.width / 2, 200) - PI / 2
+    this.balls[num].body.rotation = direction
+    //this.balls[num].body.rotation = this.balls[num].body.rotation + 1
+    console.log(this.balls[num].body.rotation)
     this.balls[num].body.moveForward(1000)
-    //this.balls[num].body.velocity.x = 3 * pointer.x - this.balls[num].body.x
-    //this.balls[num].body.velocity.y = 3 * pointer.y - this.balls[num].body.y
+    
     num++    
     let timeEvent = game.time.events.loop(400, () => {
       if (this.balls[num]) {
         this.balls[num].inCollision = true
         this.balls[num].body.x = this.game.width / 2
         this.balls[num].body.y = 250
-        this.balls[num].body.velocity.x = 2 * pointer.x - this.balls[num].body.x
-        this.balls[num].body.velocity.y = 2 * pointer.y - this.balls[num].body.y
+        this.balls[num].body.rotation = direction
+        this.balls[num].body.moveForward(1000)
         num++
       }
       if (num === this.balls.length) {
         game.time.events.remove(timeEvent)
       }
     }, this)
- 
   }
   
   createNewLine () {
