@@ -4,6 +4,7 @@ import Block from '../sprites/block'
 import Circle from '../sprites/circle'
 import Triangle from '../sprites/triangle'
 import Ball from '../sprites/ball'
+import Pentagon from '../sprites/Pentagon'
 import 'p2'
 
 const PI = 3.1415926
@@ -165,12 +166,14 @@ export default class extends Phaser.State {
       if(this.deadBlocks.length > 0) {
         console.log('block is revived from deadblocks')
         let newBlock = this.deadBlocks.shift()
+        newBlock.score = 20
+        newBlock.text.setText(newBlock.score)
         newBlock.body.x = dx * (np - 1) + 50 + adjustX
         newBlock.body.y = this.game.height
         this.aliveBlocks.push(newBlock)
         newBlock.revive()
       } else {
-        let category = Math.ceil(Math.random() * 3)
+        let category = Math.ceil(Math.random() * 4)
         switch(category) {
           case 1 : 
             let newBlock1 = new Block(this.game, dx * (np - 1) + 50 + adjustX, this.game.height, this.ballsCollisionGroup)
@@ -196,6 +199,13 @@ export default class extends Phaser.State {
             newBlock3.body.setCollisionGroup(this.blocksCollisionGroup)
             newBlock3.body.collides([this.blocksCollisionGroup, this.ballsCollisionGroup])
             break
+          case 4:
+            let newBlock4 = new Pentagon(this.game, dx * (np - 1) + 50 + adjustX, this.game.height, this.ballsCollisionGroup)
+            this.add.existing(newBlock4)
+            this.aliveBlocks.push(newBlock4)
+            newBlock4.body.setCollisionGroup(this.blocksCollisionGroup)
+            newBlock4.body.collides([this.blocksCollisionGroup, this.ballsCollisionGroup])
+            break
         }
       }
     }
@@ -206,7 +216,7 @@ export default class extends Phaser.State {
   
   addABall () {
     let car = new Ball(this.game, this.game.width / 2, 50)
-    car.body.mass = 0.001
+    car.body.mass = 10
     this.add.existing(car)
     this.balls.push(car)
     car.body.setCollisionGroup(this.ballsCollisionGroup)
@@ -219,7 +229,7 @@ export default class extends Phaser.State {
         otherBody.sprite.decScore()
         if (otherBody.sprite.score < 1) {
           this.deadBlocks.push(otherBody.sprite)
-          otherBody.sprite.score = 20
+          //otherBody.sprite.score = 20
           let index = this.aliveBlocks.indexOf(otherBody.sprite)
           this.aliveBlocks.splice(index, 1)
         }
