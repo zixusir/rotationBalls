@@ -9,7 +9,7 @@ import 'p2'
 const PI = 3.1415926
 
 export default class extends Phaser.State {
-  constructor() {
+  constructor () {
     super()
     // 对象池
     this.balls = []
@@ -18,13 +18,11 @@ export default class extends Phaser.State {
     
     // 游戏层级
     this.level = 1
-    
     // 游戏得分
     this.score = 0
-    
   }
   
-  init() { 
+  init () { 
     game.physics.startSystem(Phaser.Physics.P2JS)
     game.physics.p2.setImpactEvents(true)
     game.physics.p2.gravity.y = 1000
@@ -33,9 +31,9 @@ export default class extends Phaser.State {
     this.stage.backgroundColor = '#ffffff'
   }
 
-  preload() { }
+  preload () { }
 
-  create() {
+  create () {
     const bannerText = '旋转弹球欢迎你'
     let banner = this.add.text(this.world.centerX, 500, bannerText, {
       font: '50px',
@@ -80,6 +78,7 @@ export default class extends Phaser.State {
     this.addABall()
     
     game.input.onTap.add(this.moveTo, this)
+    // game.input.onTap.add(this.print, this)
     this.createNewLine()
   }
   
@@ -104,7 +103,12 @@ export default class extends Phaser.State {
     if (__DEV__) {
     }
   }
-  
+  // 这里简单地对点击方位进行测试，后期删除
+  print (pointer) {
+    let angle = Phaser.Math.angleBetween(2 * pointer.x, 2 * pointer.y, this.game.width / 2, 200)
+    console.log(angle / PI * 180)
+  }
+
   moveTo (pointer) {
     //game.input.enabled = false
     this.inGame = true
@@ -118,7 +122,6 @@ export default class extends Phaser.State {
     //this.balls[num].body.rotation = this.balls[num].body.rotation + 1
     console.log(this.balls[num].body.rotation)
     this.balls[num].body.moveForward(1000)
-    
     num++    
     let timeEvent = game.time.events.loop(400, () => {
       if (this.balls[num]) {
