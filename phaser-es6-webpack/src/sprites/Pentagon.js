@@ -21,7 +21,7 @@ export default class extends Phaser.Graphics {
     )
     
     this.beginFill(0xffee50)
-    this.drawPolygon([52.9, -29.1, 85.59, 19.1, 0, 81, -85.59, 19.1, -52.59, -29.1])
+    this.drawPolygon([50, 20, 0, 50, -50, 20, -30, -40, 30, -40])
     this.endFill()
     
     //this.body.offset = new Phaser.Point(-33, -65)
