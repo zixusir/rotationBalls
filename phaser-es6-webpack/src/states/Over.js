@@ -14,6 +14,8 @@ export default class extends Phaser.State {
   preload () { }
 
   create () {
+    // game.input.enabled = false
+    // System.input.enabled = true
     this.text1 = new Phaser.Text(game, this.game.width / 2, 300, 'GAME OVER', {
       font: '80px',
       fill: '#ffee00',
@@ -59,12 +61,15 @@ export default class extends Phaser.State {
     this.add.existing(this.textSprite)
     
     this.textSprite.inputEnabled = true
-    
-    this.textSprite.input.onTap.add(tapHandle, this)
-   
-    // this.add.existing(this.text)
+    this.textSprite.events.onInputDown.add(function () {
+      console.log('tap事件触发')
+    }, this)
   }
-  tapHandle () {
-    console.log('tap事件触发')
+
+  update () {}
+
+  render () {
+    game.debug.spriteInfo(this.textSprite, 32, 32)
+    game.debug.spriteInputInfo(this.textSprite, 32, 130)
   }
 }
