@@ -1,4 +1,5 @@
 import Phaser from 'phaser'
+import Data from '../states/Data'
 
 export default class extends Phaser.State {
   constructor () {
@@ -8,12 +9,14 @@ export default class extends Phaser.State {
     this.highestScore = 0
   }
   init () {
-    //this.score = this.game.score
+    this.score = Data.score
+    this.highestScore = Data.hScore
   }
 
   preload () { }
 
   create () {
+    this.stage.backgroundColor = '#ff0030'
     // game.input.enabled = false
     // System.input.enabled = true
     this.text1 = new Phaser.Text(this.game, this.game.width / 2, 300, 'GAME OVER', {
@@ -64,6 +67,22 @@ export default class extends Phaser.State {
     this.textSprite.events.onInputDown.add(function () {
       console.log('click down')
     }, this)
+
+    this.game.input.onTap.add(this.tapHandle, this)
+  }
+
+  tapHandle (pointer) {
+    pointer.x = 2 * pointer.x
+    pointer.y = 2 * pointer.y
+    // console.log('tap dispatched')
+    let minX = this.textSprite.x - this.textSprite.width / 2
+    let maxX = this.textSprite.x + this.textSprite.width / 2
+    let minY = this.textSprite.y - this.textSprite.height / 2
+    let maxY = this.textSprite.y + this.textSprite.height / 2
+    if (pointer.x > minX && pointer.x < maxX && pointer.y > minY && pointer.y < maxY) {
+      console.log('click the button')
+    }
+    this.state.start('Game')
   }
 
   update () {}
