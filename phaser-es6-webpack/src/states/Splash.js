@@ -1,7 +1,5 @@
 import Phaser from 'phaser'
 
-let loadText
-
 export default class extends Phaser.State {
   constructor () {
     super()
@@ -34,7 +32,7 @@ export default class extends Phaser.State {
     // width and height of sprite
     this.load.image('mushroom', 'assets/images/mushroom2.png')
 
-    // start load 
+    // start load
     this.load.start()
   }
 

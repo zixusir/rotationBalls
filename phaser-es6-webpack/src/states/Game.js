@@ -16,19 +16,19 @@ export default class extends Phaser.State {
     this.balls = []
     this.aliveBlocks = []
     this.deadBlocks = []
-    
+
     // 游戏层级
     this.level = 1
     // 游戏得分
     this.score = 0
   }
-  
-  init () { 
-    game.physics.startSystem(Phaser.Physics.P2JS)
-    game.physics.p2.setImpactEvents(true)
-    game.physics.p2.gravity.y = 1000
-    game.physics.p2.restitution = 0.8
-    
+
+  init () {
+    this.game.physics.startSystem(Phaser.Physics.P2JS)
+    this.game.physics.p2.setImpactEvents(true)
+    this.game.physics.p2.gravity.y = 1000
+    this.game.physics.p2.restitution = 0.8
+
     this.stage.backgroundColor = '#ffffff'
   }
 
@@ -42,49 +42,48 @@ export default class extends Phaser.State {
       smoothed: true
     })
     banner.anchor.setTo(0.5)
-    
-    this.scoreText = this.add.text(this.game.width - 100, 150, this.score, {
+
+    this.scoreText = this.add.text(this.this.game.width - 100, 150, this.score, {
       font: '50px',
       fill: '#ffdd00'
     })
-    
-    this.ballsCollisionGroup = game.physics.p2.createCollisionGroup()
-    this.blocksCollisionGroup = game.physics.p2.createCollisionGroup()
-    this.worldCollisionGroup = game.physics.p2.createCollisionGroup()
-    this.lineCollisionGroup = game.physics.p2.createCollisionGroup()
-    
+
+    this.ballsCollisionGroup = this.game.physics.p2.createCollisionGroup()
+    this.blocksCollisionGroup = this.game.physics.p2.createCollisionGroup()
+    this.worldCollisionGroup = this.game.physics.p2.createCollisionGroup()
+    this.lineCollisionGroup = this.game.physics.p2.createCollisionGroup()
+
     let line1 = this.add.graphics(0, 0)
     line1.beginFill(0xffdd00)
     line1.lineStyle(2, 0x000000)
     line1.moveTo(0, 0)
-    line1.lineTo(this.game.width / 2 - 10, 200)
-    line1.lineTo(this.game.width / 2 + 10, 200)
-    line1.lineTo(this.game.width, 0)
+    line1.lineTo(this.this.game.width / 2 - 10, 200)
+    line1.lineTo(this.this.game.width / 2 + 10, 200)
+    line1.lineTo(this.this.game.width, 0)
     line1.endFill()
-    game.physics.p2.enable(line1, true, false)
-    
+    this.game.physics.p2.enable(line1, true, false)
+
     line1.body.static = true
     line1.body.x = 0
     line1.body.y = 0
     line1.body.clearShapes()
-    let triLength = Math.sqrt(this.game.width * this.game.width / 4 + 200 * 200)
+    let triLength = Math.sqrt(this.this.game.width * this.this.game.width / 4 + 200 * 200)
     line1.body.addLine(2 * triLength, 0, 0, 3.14 / 6.5)
-    line1.body.addLine(2 * triLength, this.game.width, 0, -3.14 / 6.5)
-    line1.body.addLine(this.game.height, 0, this.game.height / 2, 3.1415926 / 2)
-    line1.body.addLine(this.game.height, this.game.width, this.game.height / 2, 3.1415926 / 2)
+    line1.body.addLine(2 * triLength, this.this.game.width, 0, -3.14 / 6.5)
+    line1.body.addLine(this.this.game.height, 0, this.this.game.height / 2, 3.1415926 / 2)
+    line1.body.addLine(this.this.game.height, this.this.game.width, this.this.game.height / 2, 3.1415926 / 2)
     line1.body.setCollisionGroup(this.lineCollisionGroup)
     line1.body.collides(this.ballsCollisionGroup)
-   
-    this.inGame = false
+    this.ingame = false
     this.addABall()
-    
-    game.input.onTap.add(this.moveTo, this)
-    // game.input.onTap.add(this.print, this)
+
+    this.game.input.onTap.add(this.moveTo, this)
+    // this.game.input.onTap.add(this.print, this)
     this.createNewLine()
   }
   
   update () {
-    if (this.inGame) {
+    if (this.ingame) {
       let startNext = true
       for (let i = 0; i < this.balls.length; i++) {
         if (this.balls[i].inCollision === true) {
@@ -93,58 +92,58 @@ export default class extends Phaser.State {
         }
       }
       if (startNext) {
-        this.inGame = false
+        this.ingame = false
         this.addABall()
         this.createNewLine()
       }
     }
   }
 
-  render() {
+  render () {
     if (__DEV__) {
     }
   }
   // 这里简单地对点击方位进行测试，后期删除
   print (pointer) {
-    let angle = Phaser.Math.angleBetween(2 * pointer.x, 2 * pointer.y, this.game.width / 2, 200)
+    let angle = Phaser.Math.angleBetween(2 * pointer.x, 2 * pointer.y, this.this.game.width / 2, 200)
     console.log(angle / PI * 180)
   }
 
   moveTo (pointer) {
-    //game.input.enabled = false
-    this.inGame = true
+    //this.game.input.enabled = false
+    this.ingame = true
     console.log(this.balls.length)
     let num = 0
     this.balls[num].inCollision = true
-    this.balls[num].body.x = this.game.width / 2
+    this.balls[num].body.x = this.this.game.width / 2
     this.balls[num].body.y = 250
-    let direction = Phaser.Math.angleBetween(2 * pointer.x, 2 * pointer.y, this.game.width / 2, 200) - PI / 2
+    let direction = Phaser.Math.angleBetween(2 * pointer.x, 2 * pointer.y, this.this.game.width / 2, 200) - PI / 2
     this.balls[num].body.rotation = direction
     //this.balls[num].body.rotation = this.balls[num].body.rotation + 1
     console.log(this.balls[num].body.rotation)
     this.balls[num].body.moveForward(1000)
-    num++    
-    let timeEvent = game.time.events.loop(400, () => {
+    num++
+    let timeEvent = this.game.time.events.loop(400, () => {
       if (this.balls[num]) {
         this.balls[num].inCollision = true
-        this.balls[num].body.x = this.game.width / 2
+        this.balls[num].body.x = this.this.game.width / 2
         this.balls[num].body.y = 250
         this.balls[num].body.rotation = direction
         this.balls[num].body.moveForward(1000)
         num++
       }
       if (num === this.balls.length) {
-        game.time.events.remove(timeEvent)
+        this.game.time.events.remove(timeEvent)
       }
     }, this)
   }
   
   createNewLine () {
-    game.input.enabled = true
+    this.game.input.enabled = true
     this.level++
     let adjustX = (this.level%2 === 0 ? 0 : 100)
     let dy = 140
-    let dx = this.game.width / 5
+    let dx = this.this.game.width / 5
     let newObjPos = []
     let num = Math.ceil(Math.random() * 5)
     console.log(`ready to create ${num} new blocks`)
@@ -169,14 +168,14 @@ export default class extends Phaser.State {
         newBlock.score = 20
         newBlock.text.setText(newBlock.score)
         newBlock.body.x = dx * (np - 1) + 50 + adjustX
-        newBlock.body.y = this.game.height
+        newBlock.body.y = this.this.game.height
         this.aliveBlocks.push(newBlock)
         newBlock.revive()
       } else {
         let category = Math.ceil(Math.random() * 4)
         switch(category) {
           case 1 : 
-            let newBlock1 = new Block(this.game, dx * (np - 1) + 50 + adjustX, this.game.height, this.ballsCollisionGroup)
+            let newBlock1 = new Block(this.this.game, dx * (np - 1) + 50 + adjustX, this.this.game.height, this.ballsCollisionGroup)
             newBlock1.signal.addOnce(()=>{
               console.log('成功侦听到事件')
             })
@@ -186,21 +185,21 @@ export default class extends Phaser.State {
             newBlock1.body.collides([this.blocksCollisionGroup, this.ballsCollisionGroup])
             break
           case 2:
-            let newBlock2 = new Circle(this.game, dx * (np - 1) + 50 + adjustX, this.game.height, this.ballsCollisionGroup)
+            let newBlock2 = new Circle(this.this.game, dx * (np - 1) + 50 + adjustX, this.this.game.height, this.ballsCollisionGroup)
             this.add.existing(newBlock2)
             this.aliveBlocks.push(newBlock2)
             newBlock2.body.setCollisionGroup(this.blocksCollisionGroup)
             newBlock2.body.collides([this.blocksCollisionGroup, this.ballsCollisionGroup])
             break
           case 3:
-            let newBlock3 = new Triangle(this.game, dx * (np - 1) + 50 + adjustX, this.game.height, this.ballsCollisionGroup)
+            let newBlock3 = new Triangle(this.this.game, dx * (np - 1) + 50 + adjustX, this.this.game.height, this.ballsCollisionGroup)
             this.add.existing(newBlock3)
             this.aliveBlocks.push(newBlock3)
             newBlock3.body.setCollisionGroup(this.blocksCollisionGroup)
             newBlock3.body.collides([this.blocksCollisionGroup, this.ballsCollisionGroup])
             break
           case 4:
-            let newBlock4 = new Pentagon(this.game, dx * (np - 1) + 50 + adjustX, this.game.height, this.ballsCollisionGroup)
+            let newBlock4 = new Pentagon(this.this.game, dx * (np - 1) + 50 + adjustX, this.this.game.height, this.ballsCollisionGroup)
             this.add.existing(newBlock4)
             this.aliveBlocks.push(newBlock4)
             newBlock4.body.setCollisionGroup(this.blocksCollisionGroup)
@@ -215,7 +214,7 @@ export default class extends Phaser.State {
   }
   
   addABall () {
-    let car = new Ball(this.game, this.game.width / 2, 50)
+    let car = new Ball(this.this.game, this.this.game.width / 2, 50)
     car.body.mass = 10
     this.add.existing(car)
     this.balls.push(car)
