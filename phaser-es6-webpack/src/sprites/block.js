@@ -30,7 +30,7 @@ export default class extends Phaser.Graphics {
     this.body.angularVelocity = 1
     
     this.signal = new Phaser.Signal()
-    this.signal.dispatch()
+    // this.signal.dispatch()
     this.create()
   }
   create () {
