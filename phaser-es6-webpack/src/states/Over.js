@@ -14,6 +14,7 @@ export default class extends Phaser.State {
   preload () { }
 
   create () {
+    game.input.enabled = true
     this.text1 = new Phaser.Text(game, this.game.width / 2, 300, 'GAME OVER', {
       font: '80px',
       fill: '#ffee00',
@@ -45,9 +46,9 @@ export default class extends Phaser.State {
     this.text2.endFill()
 
     this.textTexture  = this.text2.generateTexture()
-    this.textSprite = new Phaser.Sprite(game, this.game.width / 2, this.game.height / 2 + 100, this.textTexture)
+    let textSprite = this.add.sprite(this.game.width / 2, this.game.height / 2 + 100, this.textTexture)
     
-    this.textSprite.anchor.setTo(0.5)
+    textSprite.anchor.setTo(0.5)
     
     this.text3 = new Phaser.Text(game, 0, 0, 'Try Again', {
       font: '40px',
@@ -55,16 +56,18 @@ export default class extends Phaser.State {
       align: 'center'
     })
     this.text3.anchor.setTo(0.5)
-    this.textSprite.addChild(this.text3)
-    this.add.existing(this.textSprite)
+    textSprite.addChild(this.text3)
     
-    this.textSprite.inputEnabled = true
-    
-    this.textSprite.input.onTap.add(tapHandle, this)
+    textSprite.inputEnabled = true
+   // textSprite.input.enableDrag()
+  //  textSprite.input.useHandCursor = true
+    textSprite.events.onInputDown.add(this.tapHandler, this)
    
     // this.add.existing(this.text)
   }
-  tapHandle () {
+  
+  tapHandler (sprite) {
+    sprite.distory()
     console.log('tap事件触发')
   }
 }

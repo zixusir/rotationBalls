@@ -111,7 +111,7 @@ export default class extends Phaser.State {
   }
 
   moveTo (pointer) {
-    //game.input.enabled = false
+    game.input.enabled = false
     this.inGame = true
     console.log(this.balls.length)
     let num = 0
