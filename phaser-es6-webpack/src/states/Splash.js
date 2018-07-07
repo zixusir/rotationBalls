@@ -15,7 +15,7 @@ export default class extends Phaser.State {
   }
 
   create () {
-    this.stage.backgroundColor = '#ff0055'
+    // this.stage.backgroundColor = '#ff0055'
     this.asset = this.add.sprite(this.game.width / 2, this.game.height / 2, 'loadbar')
     this.asset.anchor.setTo(0.5, 0.5)
     this.load.onLoadComplete.addOnce(this.onLoadComplete, this)
@@ -38,8 +38,8 @@ export default class extends Phaser.State {
 
   update () {
     if (this.ready) {
-      // this.game.state.start('Game')
-      this.game.state.start('Over')
+      this.game.state.start('Game')
+      // this.game.state.start('Over')
     }
   }
 

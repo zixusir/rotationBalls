@@ -21,12 +21,12 @@ export default class extends Phaser.Graphics {
     )
     
     this.beginFill(0xffee50)
-    this.drawPolygon([25, -34.25, 40.4, 13.15, 0, 42.5, -40.4, 13.15, -25, -34.25])
+    this.drawPolygon([12.5, -17.12, 20.2, 6.65, 0, 21.25, -20.2, 7.6, -12.5, -17.12])
     this.endFill()
     
     //this.body.offset = new Phaser.Point(-33, -65)
     this.body.clearShapes()
-    this.body.addPolygon({},[25, -34.25, 40.4, 13.15, 0, 42.5, -40.4, 13.15, -25, -34.25])
+    this.body.addPolygon({}, [12.5, -17.12, 20.2, 6.65, 0, 21.25, -20.2, 7.6, -12.5, -17.12])
     this.body.static = true
     this.body.angularVelocity = -1
     this.body.adjustCenterOfMass()
@@ -37,7 +37,7 @@ export default class extends Phaser.Graphics {
   }
   create () {
     this.text = new Phaser.Text(this.game, 0, 0, this.score,{
-      font: '30px',
+      font: '20px',
       fill: '#ff00ee',
       align: 'center'
     })
@@ -55,7 +55,7 @@ export default class extends Phaser.Graphics {
   
   update () {
     this.text.angle = -this.body.angle
-    if (this.body.y < 300) {
+    if (this.body.y < 130) {
       this.signal.dispatch()
     }
   }

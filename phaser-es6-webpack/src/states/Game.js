@@ -58,15 +58,15 @@ export default class extends Phaser.State {
 
   create () {
     const bannerText = '旋转弹球欢迎你'
-    let banner = this.add.text(this.world.centerX, 500, bannerText, {
-      font: '50px',
+    let banner = this.add.text(this.world.centerX, 250, bannerText, {
+      font: '25px',
       fill: '#ff0000',
       smoothed: true
     })
     banner.anchor.setTo(0.5)
 
-    this.scoreText = this.add.text(this.game.width - 100, 150, this.score, {
-      font: '50px',
+    this.scoreText = this.add.text(this.game.width - 50, 50, this.score, {
+      font: '25px',
       fill: '#ffdd00'
     })
 
@@ -79,8 +79,8 @@ export default class extends Phaser.State {
     line1.beginFill(0xffdd00)
     line1.lineStyle(2, 0x000000)
     line1.moveTo(0, 0)
-    line1.lineTo(this.game.width / 2 - 10, 200)
-    line1.lineTo(this.game.width / 2 + 10, 200)
+    line1.lineTo(this.game.width / 2 - 10, 100)
+    line1.lineTo(this.game.width / 2 + 10, 100)
     line1.lineTo(this.game.width, 0)
     line1.endFill()
     this.game.physics.p2.enable(line1, true, false)
@@ -103,7 +103,7 @@ export default class extends Phaser.State {
     // this.game.input.onTap.add(this.print, this)
     this.createNewLine()
   }
-  
+
   update () {
     if (this.ingame) {
       let startNext = true
@@ -136,20 +136,20 @@ export default class extends Phaser.State {
     let num = 0
     this.balls[num].inCollision = true
     this.balls[num].body.x = this.game.width / 2
-    this.balls[num].body.y = 250
-    let direction = Phaser.Math.angleBetween(2 * pointer.x, 2 * pointer.y, this.game.width / 2, 200) - PI / 2
+    this.balls[num].body.y = 100
+    let direction = Phaser.Math.angleBetween(pointer.x, pointer.y, this.game.width / 2, 100) - PI / 2
     this.balls[num].body.rotation = direction
-    //this.balls[num].body.rotation = this.balls[num].body.rotation + 1
+    // this.balls[num].body.rotation = this.balls[num].body.rotation + 1
     console.log(this.balls[num].body.rotation)
-    this.balls[num].body.moveForward(1000)
+    this.balls[num].body.moveForward(500)
     num++
     let timeEvent = this.game.time.events.loop(400, () => {
       if (this.balls[num]) {
         this.balls[num].inCollision = true
         this.balls[num].body.x = this.game.width / 2
-        this.balls[num].body.y = 250
+        this.balls[num].body.y = 100
         this.balls[num].body.rotation = direction
-        this.balls[num].body.moveForward(1000)
+        this.balls[num].body.moveForward(500)
         num++
       }
       if (num === this.balls.length) {
@@ -161,8 +161,8 @@ export default class extends Phaser.State {
   createNewLine () {
     this.game.input.enabled = true
     this.level++
-    let adjustX = (this.level%2 === 0 ? 0 : 100)
-    let dy = 140
+    let adjustX = (this.level % 2 === 0 ? 0 : 50)
+    let dy = 70
     let dx = this.game.width / 5
     let newObjPos = []
     let num = Math.ceil(Math.random() * 5)
