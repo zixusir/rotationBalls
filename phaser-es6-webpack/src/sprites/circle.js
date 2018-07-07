@@ -12,7 +12,7 @@ export default class extends Phaser.Graphics {
     this.obj = obj
     
     this.beginFill(0xffee50, 1)
-    this.drawCircle(0, 0, 80)
+    this.drawCircle(0, 0, 40)
     this.endFill()
     
     game.physics.p2.enable(this, false, false)
@@ -23,7 +23,7 @@ export default class extends Phaser.Graphics {
       },
       this
     )
-    this.body.setCircle(40)
+    this.body.setCircle(20)
     this.body.static = true
     
     this.signal = new Phaser.Signal()
@@ -32,7 +32,7 @@ export default class extends Phaser.Graphics {
   }
   create () {
     this.text = new Phaser.Text(this.game, 0, 0, this.score,{
-      font: '30px',
+      font: '20px',
       fill: '#ff00ee',
       align: 'center'
     })
@@ -50,7 +50,7 @@ export default class extends Phaser.Graphics {
   
   update () {
     this.text.angle = -this.body.angle
-    if (this.body.y < 300) {
+    if (this.body.y < 130) {
       this.signal.dispatch()
     }
   }

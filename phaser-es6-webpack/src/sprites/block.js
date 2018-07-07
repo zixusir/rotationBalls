@@ -12,7 +12,7 @@ export default class extends Phaser.Graphics {
     this.obj = obj
     
     this.beginFill(0xffee50, 1)
-    this.drawRect(-40, -40, 80, 80)
+    this.drawRect(-20, -20, 40, 40)
     this.endFill()
     
     game.physics.p2.enable(this, false, false)
@@ -23,10 +23,10 @@ export default class extends Phaser.Graphics {
       },
       this
     )
-    this.body.setRectangle(80, 80, 0, 0)
+    this.body.setRectangle(40, 40, 0, 0)
     this.body.static = true
-    this.body.centerX = 20
-    this.body.centerY = 20
+    this.body.centerX = 10
+    this.body.centerY = 10
     this.body.angularVelocity = 1
     
     this.signal = new Phaser.Signal()
@@ -35,7 +35,7 @@ export default class extends Phaser.Graphics {
   }
   create () {
     this.text = new Phaser.Text(this.game, 0, 0, this.score,{
-      font: '30px',
+      font: '20px',
       fill: '#ff00ee',
       align: 'center'
     })
@@ -53,7 +53,7 @@ export default class extends Phaser.Graphics {
   
   update () {
     this.text.angle = -this.body.angle
-    if (this.body.y < 300) {
+    if (this.body.y < 130) {
       this.signal.dispatch()
     }
   }
