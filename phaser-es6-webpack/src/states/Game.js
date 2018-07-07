@@ -83,7 +83,7 @@ export default class extends Phaser.State {
     line1.lineTo(this.game.width / 2 + 10, 100)
     line1.lineTo(this.game.width, 0)
     line1.endFill()
-    this.game.physics.p2.enable(line1, true, false)
+    this.game.physics.p2.enable(line1, false, false)
 
     line1.body.static = true
     line1.body.x = 0
@@ -157,11 +157,11 @@ export default class extends Phaser.State {
       }
     }, this)
   }
-  
+
   createNewLine () {
     this.game.input.enabled = true
     this.level++
-    let adjustX = (this.level % 2 === 0 ? 0 : 50)
+    let adjustX = (this.level % 2 === 0 ? 0 : 25)
     let dy = 70
     let dx = this.game.width / 5
     let newObjPos = []
@@ -181,7 +181,7 @@ export default class extends Phaser.State {
         }
         newObjPos.push(np)
       }
-      
+
       if (this.deadBlocks.length > 0) {
         console.log('block is revived from deadblocks')
         let newBlock = this.deadBlocks.shift()
