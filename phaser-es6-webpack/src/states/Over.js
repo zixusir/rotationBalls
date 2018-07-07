@@ -82,8 +82,9 @@ export default class extends Phaser.State {
     let maxY = this.textSprite.y + this.textSprite.height / 2
     if (pointer.x > minX && pointer.x < maxX && pointer.y > minY && pointer.y < maxY) {
       console.log('click the button')
+      this.state.start('Game')
     }
-    this.state.start('Game')
+    
   }
 
   update () {}

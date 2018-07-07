@@ -38,8 +38,8 @@ export default class extends Phaser.State {
 
   update () {
     if (this.ready) {
-      // this.game.state.start('Game')
-      this.game.state.start('Over')
+      this.game.state.start('Game')
+      // this.game.state.start('Over')
     }
   }
 

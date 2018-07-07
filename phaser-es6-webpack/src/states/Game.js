@@ -47,6 +47,7 @@ export default class extends Phaser.State {
 
     if (localStorage.hasOwnProperty('hScore')) {
       this.hScore = parseInt(localStorage.getItem('hScore'))
+      Data.hScore = this.hScore
     } else {
       this.hScore = 0
     }
@@ -205,7 +206,7 @@ export default class extends Phaser.State {
                 localStorage.setItem('score', Data.score.toString())
                 if (this.score > this.hScore) {
                   Data.hScore = this.score
-                  localStorage.setItem('hScore', this.hScore.toString())
+                  localStorage.setItem('hScore', this.score.toString())
                 }
               }
             })
@@ -225,7 +226,7 @@ export default class extends Phaser.State {
                 localStorage.setItem('score', Data.score.toString())
                 if (this.score > this.hScore) {
                   Data.hScore = this.score
-                  localStorage.setItem('hScore', this.hScore.toString())
+                  localStorage.setItem('hScore', this.score.toString())
                 }
               }
             })
@@ -245,7 +246,7 @@ export default class extends Phaser.State {
                 localStorage.setItem('score', Data.score.toString())
                 if (this.score > this.hScore) {
                   Data.hScore = this.score
-                  localStorage.setItem('hScore', this.hScore.toString())
+                  localStorage.setItem('hScore', this.score.toString())
                 }
               }
             })
@@ -265,7 +266,7 @@ export default class extends Phaser.State {
                 localStorage.setItem('score', Data.score.toString())
                 if (this.score > this.hScore) {
                   Data.hScore = this.score
-                  localStorage.setItem('hScore', this.hScore.toString())
+                  localStorage.setItem('hScore', this.score.toString())
                 }
               }
             })
