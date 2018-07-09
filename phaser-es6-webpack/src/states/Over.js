@@ -71,4 +71,3 @@ export default class extends Phaser.State {
   }
   update () {}
 }
->>>>>>> 5576bffc380d0ce046f57e22a0593bdfe450b2fc

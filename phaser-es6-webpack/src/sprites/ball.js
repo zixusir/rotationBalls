@@ -11,8 +11,10 @@ export default class extends Phaser.Sprite {
 
     this.graphic = new Phaser.Graphics(this.game, 0, 0)
     this.graphic.beginFill(0xff0000)
-    this.graphic.drawCircle(0, 0, 30)
+    this.graphic.drawCircle(0, 0, 20)
     this.graphic.endFill()
+    
+    this.loadTexture(this.graphic.generateTexture())
 
     game.physics.p2.enable(this, false, false)
     this.body.setCircle(10)
