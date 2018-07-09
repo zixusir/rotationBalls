@@ -26,7 +26,7 @@ export default class extends Phaser.Graphics {
       this.inCollision = false
       this.body.setZeroVelocity()
       this.body.x = this.game.width / 2
-      this.body.y = 50
+      this.body.y = 0
     }
   }
 }

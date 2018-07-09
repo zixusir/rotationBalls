@@ -1,5 +1,5 @@
 import Phaser from 'phaser'
-export default class extends Phaser.Graphics {
+export default class extends Phaser.Sprite {
   constructor (game, x, y, obj) {
     super(game, x, y)
     this.game = game
@@ -7,7 +7,7 @@ export default class extends Phaser.Graphics {
     this.y = y
     this.score = 10
 
-    this.moveTo(x, y)
+    // this.moveTo(x, y)
 
     this.obj = obj
 
@@ -20,10 +20,12 @@ export default class extends Phaser.Graphics {
       this
     )
 
-    this.beginFill(0xffee50)
-    this.drawPolygon([0, 20, -20, -14, 20, -14])
-    this.endFill()
+    this.graphic = new Phaser.Graphics(this.game, 0, 0)
+    this.graphic.beginFill(0xffee50)
+    this.graphic.drawPolygon([0, 20, -20, -14, 20, -14])
+    this.graphic.endFill()
 
+    this.loadTexture(this.graphic.generateTexture())
     // this.body.offset = new Phaser.Point(-33, -65)
     this.body.clearShapes()
     this.body.addPolygon({}, [0, 20, -20, -14, 20, -14])
@@ -35,8 +37,9 @@ export default class extends Phaser.Graphics {
     // this.signal.dispatch()
     this.create()
   }
+
   create () {
-    this.text = new Phaser.Text(this.game, 0, 0, this.score,{
+    this.text = new Phaser.Text(this.game, 0, 0, this.score, {
       font: '20px',
       fill: '#ff00ee',
       align: 'center'

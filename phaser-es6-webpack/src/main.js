@@ -7,8 +7,8 @@ import GameState from './states/Game'
 import OverState from './states/Over'
 
 // console in mobile chrome
-import Eruda from 'eruda'
-Eruda.init()
+// import Eruda from 'eruda'
+// Eruda.init()
 
 const docElement = document.documentElement
 const width = docElement.clientWidth

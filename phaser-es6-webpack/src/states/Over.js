@@ -19,21 +19,21 @@ export default class extends Phaser.State {
     this.stage.backgroundColor = '#ff0030'
     // game.input.enabled = false
     // System.input.enabled = true
-    this.text1 = new Phaser.Text(this.game, this.game.width / 2, 300, 'GAME OVER', {
+    this.text1 = new Phaser.Text(this.game, this.game.width / 2, this.game.height / 2 - 200, 'GAME OVER', {
       font: '40px',
       fill: '#ffee00',
       align: 'center'
     })
     this.text1.anchor.setTo(0.5)
 
-    this.uScore = new Phaser.Text(this.game, this.game.width / 2, 400, `Your Score: ${this.score}`, {
+    this.uScore = new Phaser.Text(this.game, this.game.width / 2, this.game.height / 2 - 150, `Your Score: ${this.score}`, {
       font: '20px',
       fill: '#ffee00',
       align: 'center'
     })
     this.uScore.anchor.setTo(0.5)
 
-    this.hScore = new Phaser.Text(this.game, this.game.width / 2, 500, `Highest Score: ${this.highestScore}`, {
+    this.hScore = new Phaser.Text(this.game, this.game.width / 2, this.game.height / 2 - 100, `Highest Score: ${this.highestScore}`, {
       font: '20px',
       fill: '#ffee00',
       align: 'center'
@@ -50,7 +50,7 @@ export default class extends Phaser.State {
     this.text2.endFill()
 
     this.textTexture = this.text2.generateTexture()
-    this.textSprite = new Phaser.Sprite(this.game, this.game.width / 2, this.game.height / 2 + 100, this.textTexture)
+    this.textSprite = new Phaser.Sprite(this.game, this.game.width / 2, this.game.height / 2, this.textTexture)
 
     this.textSprite.anchor.setTo(0.5)
 

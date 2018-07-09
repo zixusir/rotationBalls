@@ -1,20 +1,24 @@
 import Phaser from 'phaser'
-export default class extends Phaser.Graphics {
+export default class extends Phaser.Sprite {
   constructor (game, x, y, obj) {
     super(game, x, y)
     this.game = game
     this.x = x
     this.y = y
     this.score = 10
-    
+
     this.anchor.setTo(0.5)
-    
+
     this.obj = obj
-    
-    this.beginFill(0xffee50, 1)
-    this.drawRect(-20, -20, 40, 40)
-    this.endFill()
-    
+
+    this.graphic = new Phaser.Graphics(this.game, 0, 0)
+
+    this.graphic.beginFill(0xffee50, 1)
+    this.graphic.drawRect(-20, -20, 40, 40)
+    this.graphic.endFill()
+
+    this.loadTexture(this.graphic.generateTexture())
+
     game.physics.p2.enable(this, false, false)
     this.body.createGroupCallback(
       this.obj,
@@ -28,7 +32,7 @@ export default class extends Phaser.Graphics {
     this.body.centerX = 10
     this.body.centerY = 10
     this.body.angularVelocity = 1
-    
+
     this.signal = new Phaser.Signal()
     // this.signal.dispatch()
     this.create()
