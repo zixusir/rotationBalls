@@ -1,6 +1,6 @@
 import Phaser from 'phaser'
 export default class extends Phaser.Sprite {
-  constructor (game, x, y, obj) {
+  constructor (game, x, y, obj, texture) {
     super(game, x, y)
     this.game = game
     this.x = x
@@ -20,19 +20,13 @@ export default class extends Phaser.Sprite {
       this
     )
 
-    this.graphic = new Phaser.Graphics(this.game, 0, 0)
-
-    this.graphic.beginFill(0xffee50)
-    this.graphic.drawPolygon([12.5, -17.12, 20.2, 6.65, 0, 21.25, -20.2, 7.6, -12.5, -17.12])
-    this.graphic.endFill()
-
-    this.loadTexture(this.graphic.generateTexture())
+    this.loadTexture(texture)
 
     // this.body.offset = new Phaser.Point(-33, -65)
     this.body.clearShapes()
     this.body.addPolygon({}, [12.5, -17.12, 20.2, 6.65, 0, 21.25, -20.2, 7.6, -12.5, -17.12])
     this.body.static = true
-    this.body.angularVelocity = -1
+    // this.body.angularVelocity = -1
     this.body.adjustCenterOfMass()
 
     this.signal = new Phaser.Signal()

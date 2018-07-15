@@ -1,6 +1,6 @@
 import Phaser from 'phaser'
 export default class extends Phaser.Sprite {
-  constructor (game, x, y, obj) {
+  constructor (game, x, y, obj, texture) {
     super(game, x, y)
     this.game = game
     this.x = x
@@ -12,11 +12,7 @@ export default class extends Phaser.Sprite {
 
     this.obj = obj
 
-    this.graphic.beginFill(0xffee50, 1)
-    this.graphic.drawCircle(0, 0, 40)
-    this.graphic.endFill()
-
-    this.loadTexture(this.graphic.generateTexture())
+    this.loadTexture(texture)
 
     game.physics.p2.enable(this, false, false)
     this.body.createGroupCallback(

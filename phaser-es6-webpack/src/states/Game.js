@@ -6,6 +6,7 @@ import Triangle from '../sprites/triangle'
 import Ball from '../sprites/ball'
 import Pentagon from '../sprites/Pentagon'
 import Data from '../states/Data'
+import Texture from '../sprites/texture'
 import 'p2'
 
 const PI = 3.1415926
@@ -58,6 +59,9 @@ export default class extends Phaser.State {
   preload () { }
 
   create () {
+    // 纹理
+    this.texture = new Texture(this.game)
+
     const bannerText = '旋转弹球欢迎你'
     let banner = this.add.text(this.world.centerX, 250, bannerText, {
       font: '25px',
@@ -118,6 +122,7 @@ export default class extends Phaser.State {
         this.ingame = false
         this.addABall()
         this.createNewLine()
+        // this.game.input.enabled = true
       }
     }
   }
@@ -196,7 +201,7 @@ export default class extends Phaser.State {
         let category = Math.ceil(Math.random() * 4)
         switch (category) {
           case 1:
-            let newBlock1 = new Block(this.game, dx * (np - 1) + 50 + adjustX, this.game.height, this.ballsCollisionGroup)
+            let newBlock1 = new Block(this.game, dx * (np - 1) + 50 + adjustX, this.game.height, this.ballsCollisionGroup, this.texture.blockTexture)
             newBlock1.signal.addOnce(() => {
               console.log('GAME OVER')
               if (this.gameState) {
@@ -216,7 +221,7 @@ export default class extends Phaser.State {
             newBlock1.body.collides([this.blocksCollisionGroup, this.ballsCollisionGroup])
             break
           case 2:
-            let newBlock2 = new Circle(this.game, dx * (np - 1) + 50 + adjustX, this.game.height, this.ballsCollisionGroup)
+            let newBlock2 = new Circle(this.game, dx * (np - 1) + 50 + adjustX, this.game.height, this.ballsCollisionGroup, this.texture.circleTexture)
             newBlock2.signal.addOnce(() => {
               console.log('GAME OVER')
               if (this.gameState) {
@@ -236,7 +241,7 @@ export default class extends Phaser.State {
             newBlock2.body.collides([this.blocksCollisionGroup, this.ballsCollisionGroup])
             break
           case 3:
-            let newBlock3 = new Triangle(this.game, dx * (np - 1) + 50 + adjustX, this.game.height, this.ballsCollisionGroup)
+            let newBlock3 = new Triangle(this.game, dx * (np - 1) + 50 + adjustX, this.game.height, this.ballsCollisionGroup, this.texture.triangleTexture)
             newBlock3.signal.addOnce(() => {
               console.log('GAME OVER')
               if (this.gameState) {
@@ -256,7 +261,7 @@ export default class extends Phaser.State {
             newBlock3.body.collides([this.blocksCollisionGroup, this.ballsCollisionGroup])
             break
           case 4:
-            let newBlock4 = new Pentagon(this.game, dx * (np - 1) + 50 + adjustX, this.game.height, this.ballsCollisionGroup)
+            let newBlock4 = new Pentagon(this.game, dx * (np - 1) + 50 + adjustX, this.game.height, this.ballsCollisionGroup, this.texture.pentagonTexture)
             newBlock4.signal.addOnce(() => {
               console.log('GAME OVER')
               if (this.gameState) {
@@ -284,7 +289,7 @@ export default class extends Phaser.State {
   }
 
   addABall () {
-    let car = new Ball(this.game, this.game.width / 2, 50)
+    let car = new Ball(this.game, this.game.width / 2, 50, this.texture.ballTexture)
     car.body.mass = 10
     this.add.existing(car)
     this.balls.push(car)

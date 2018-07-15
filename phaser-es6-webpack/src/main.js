@@ -5,6 +5,7 @@ import Phaser from 'phaser'
 import SplashState from './states/Splash'
 import GameState from './states/Game'
 import OverState from './states/Over'
+// import Texture from './sprites/texture'
 
 // console in mobile chrome
 // import Eruda from 'eruda'
@@ -13,9 +14,9 @@ import OverState from './states/Over'
 const docElement = document.documentElement
 const width = docElement.clientWidth
 const height = docElement.clientHeight
-let game
+let game = new Phaser.Game(width * 1, height * 1, Phaser.CANVAS, 'game')
+console.log(game)
 window.onload = function () {
-  game = new Phaser.Game(width * 1, height * 1, Phaser.CANVAS, 'game')
   game.state.add('Splash', SplashState)
   game.state.add('Game', GameState)
   game.state.add('Over', OverState)
